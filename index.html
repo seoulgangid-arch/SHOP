@@ -3,37 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login with Google</title>
+    <title>Login - SHOP</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .g_id_signin {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Login with Google</h2>
-    
+    <h1>Login with Google</h1>
+
     <!-- Google Sign-In button -->
     <div id="g_id_onload"
-         data-client_id="YOUR_GOOGLE_CLIENT_ID"
-         data-login_uri="http://localhost:5500/google-login-callback.html"
+         data-client_id="314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse"
          data-auto_prompt="false">
     </div>
 
     <div class="g_id_signin"
          data-type="standard"
-         data-shape="rectangular"
          data-theme="outline"
-         data-text="signin_with"
          data-size="large"
+         data-text="signin_with"
          data-logo_alignment="left">
     </div>
 
     <script>
         function handleCredentialResponse(response) {
-            console.log("Encoded JWT ID token: " + response.credential);
-            // You can send this token to your server for verification and login
+            console.log("JWT Token: " + response.credential);
+            // Redirect ke SHOP setelah login
+            window.location.href = "https://seoulgangid-arch.github.io/SHOP/";
         }
 
         window.onload = function () {
             google.accounts.id.initialize({
-                client_id: "YOUR_GOOGLE_CLIENT_ID",
+                client_id: "314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com",
                 callback: handleCredentialResponse
             });
 
@@ -42,7 +59,7 @@
                 { theme: "outline", size: "large" }
             );
 
-            google.accounts.id.prompt(); // Display the One Tap prompt
+            google.accounts.id.prompt(); // Tampilkan One Tap
         }
     </script>
 </body>

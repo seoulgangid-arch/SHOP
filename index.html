@@ -8,137 +8,141 @@
 <!-- Import Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka+One&family=Cherry+Swash:wght@700&display=swap" rel="stylesheet">
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    body {
-        font-family: 'Fredoka One', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: linear-gradient(135deg, #330000, #660000);
-    }
+body {
+    font-family:'Fredoka One', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background: linear-gradient(135deg,#330000,#660000);
+}
 
-    .container {
-        text-align: center;
-        background: linear-gradient(145deg, #ff1a1a, #cc0000);
-        border-radius: 25px;
-        padding: 40px 30px;
-        width: 90%;
-        max-width: 400px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px #ff3333 inset;
-        transform: translateY(-50px);
-        opacity: 0;
-        animation: slideIn 1s forwards;
-    }
+.container {
+    text-align:center;
+    background: linear-gradient(145deg,#ff1a1a,#cc0000);
+    border-radius:25px;
+    padding:40px 30px;
+    width:90%;
+    max-width:400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px #ff3333 inset;
+    transform: translateY(-50px);
+    opacity:0;
+    animation: slideIn 1s forwards;
+}
 
-    @keyframes slideIn { to { transform: translateY(0); opacity: 1; } }
+@keyframes slideIn { to { transform:translateY(0); opacity:1; } }
 
-    h1 { 
-        font-family: 'Pacifico', cursive;
-        font-size: 2.2rem;
-        color: #fff;
-        margin-bottom: 25px;
-        text-shadow: 0 0 5px #ff6666, 0 0 15px #ff1a1a;
-        animation: bounce 2s infinite;
-    }
+h1 {
+    font-family:'Pacifico', cursive;
+    font-size:2.2rem;
+    color:#fff;
+    margin-bottom:25px;
+    text-shadow:0 0 5px #ff6666,0 0 15px #ff1a1a;
+    animation: bounce 2s infinite;
+}
 
-    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
 
-    .register-text {
-        font-family: 'Fredoka One', cursive;
-        font-size: 1.2rem;
-        color: #fff;
-        cursor: pointer;
-        text-decoration: underline;
-        margin-top: 15px;
-        transition: 0.3s;
-    }
-    .register-text:hover {
-        color: #ffcccc;
-        text-shadow: 0 0 5px #ff6666, 0 0 10px #ff3333;
-    }
+.register-text {
+    font-family:'Fredoka One', cursive;
+    font-size:1.2rem;
+    color:#fff;
+    cursor:pointer;
+    text-decoration:underline;
+    margin-top:15px;
+    transition:0.3s;
+}
 
-    #register-form {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 15px;
-    }
+.register-text:hover {
+    color:#ffcccc;
+    text-shadow:0 0 5px #ff6666,0 0 10px #ff3333;
+}
 
-    #register-form input, #register-form button {
-        width: 80%;
-        margin-top: 12px;
-        padding: 14px;
-        font-size: 16px;
-        border-radius: 12px;
-        border: none;
-        outline: none;
-        transition: all 0.3s ease;
-    }
+#register-form {
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    margin-top:15px;
+}
 
-    #register-form input {
-        background: #660000;
-        color: #fff;
-        border: 2px solid #ff1a1a;
-        box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-        font-family: 'Cherry Swash', cursive;
-    }
-    #register-form input:focus { border-color: #ff3333; box-shadow: 2px 2px 12px #ff6666; }
+#register-form input, #register-form button {
+    width:80%;
+    margin-top:12px;
+    padding:14px;
+    font-size:16px;
+    border-radius:12px;
+    border:none;
+    outline:none;
+    transition:all 0.3s ease;
+}
 
-    #register-form button {
-        background: linear-gradient(145deg, #ff1a1a, #ff3333);
-        color: #fff;
-        font-family: 'Fredoka One', cursive;
-        font-size: 1.1rem;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
-    }
-    #register-form button:hover {
-        background: linear-gradient(145deg, #ff3333, #ff1a1a);
-        transform: translateY(-3px);
-        box-shadow: 4px 6px 20px rgba(0,0,0,0.4);
-    }
+#register-form input {
+    background:#660000;
+    color:#fff;
+    border:2px solid #ff1a1a;
+    box-shadow:2px 2px 8px rgba(0,0,0,0.2);
+    font-family:'Cherry Swash', cursive;
+}
 
-    /* Custom Google Button */
-    .custom-google-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        font-family: 'Cherry Swash', cursive;
-        background: linear-gradient(145deg, #ff1a1a, #ff4d4d);
-        color: #fff;
-        font-size: 1.1rem;
-        padding: 12px;
-        border-radius: 12px;
-        border: none;
-        cursor: pointer;
-        box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
-        transition: all 0.3s ease;
-        margin-top: 15px;
-    }
-    .custom-google-btn:hover {
-        background: linear-gradient(145deg, #ff4d4d, #ff1a1a);
-        transform: translateY(-3px);
-        box-shadow: 4px 6px 20px rgba(0,0,0,0.4);
-    }
+#register-form input:focus { border-color:#ff3333; box-shadow:2px 2px 12px #ff6666; }
 
-    @media (max-width: 480px) { 
-        .container { padding: 30px 20px; }
-        h1 { font-size: 1.8rem; }
-        #register-form input, #register-form button, .custom-google-btn { width: 90%; }
-    }
+#register-form button {
+    background:linear-gradient(145deg,#ff1a1a,#ff3333);
+    color:#fff;
+    font-family:'Fredoka One', cursive;
+    font-size:1.1rem;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:2px 4px 12px rgba(0,0,0,0.3);
+}
+
+#register-form button:hover {
+    background:linear-gradient(145deg,#ff3333,#ff1a1a);
+    transform:translateY(-3px);
+    box-shadow:4px 6px 20px rgba(0,0,0,0.4);
+}
+
+/* Custom Google Button */
+.custom-google-btn {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-family:'Cherry Swash', cursive;
+    background:linear-gradient(145deg,#ff1a1a,#ff4d4d);
+    color:#fff;
+    font-size:1.1rem;
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    box-shadow:2px 4px 12px rgba(0,0,0,0.3);
+    transition:all 0.3s ease;
+    margin-top:15px;
+}
+
+.custom-google-btn:hover {
+    background:linear-gradient(145deg,#ff4d4d,#ff1a1a);
+    transform:translateY(-3px);
+    box-shadow:4px 6px 20px rgba(0,0,0,0.4);
+}
+
+@media(max-width:480px) {
+    .container{padding:30px 20px;}
+    h1{font-size:1.8rem;}
+    #register-form input,#register-form button,.custom-google-btn{width:90%;}
+}
 </style>
 </head>
 <body>
 <div class="container">
     <h1>Sign in with Google</h1>
 
-    <!-- Custom Google Button -->
+    <!-- Custom Google Button with local logo -->
     <button class="custom-google-btn" onclick="googleSignIn()">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="20" alt="Google Logo">
+        <img src="gicon.png" width="20" alt="Google Logo">
         Sign in with Google
     </button>
 
@@ -151,35 +155,37 @@
 </div>
 
 <script>
-function googleSignIn() {
+window.onload = function(){
+    // Initialize Google API once on page load
     google.accounts.id.initialize({
         client_id: "314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com",
         callback: handleCredentialResponse
     });
-    google.accounts.id.prompt(); // show Google One Tap / login popup
+};
+
+function googleSignIn(){
+    // Trigger Google login popup
+    google.accounts.id.prompt();
 }
 
-function handleCredentialResponse(response) {
-    console.log("JWT Token: " + response.credential);
-    window.location.href = "https://seoulgangid-arch.github.io/SHOP/";
+function handleCredentialResponse(response){
+    console.log("JWT Token: "+response.credential);
+    window.location.href="https://seoulgangid-arch.github.io/SHOP/";
 }
 
-function showRegisterForm() {
-    const form = document.getElementById("register-form");
-    form.style.display = "flex";
-    form.animate([{opacity: 0}, {opacity: 1}], {duration: 500});
+function showRegisterForm(){
+    const form=document.getElementById("register-form");
+    form.style.display="flex";
+    form.animate([{opacity:0},{opacity:1}],{duration:500});
 }
 
-function submitRegister() {
-    const email = document.getElementById("register-email").value.trim();
-    if(!email) {
-        alert("Please enter a valid Gmail.");
-        return;
-    }
+function submitRegister(){
+    const email=document.getElementById("register-email").value.trim();
+    if(!email){ alert("Please enter a valid Gmail."); return; }
     alert(`Thank you! The email ${email} has been sent to the admin for verification.`);
-    const form = document.getElementById("register-form");
-    form.style.display = "none";
-    document.getElementById("register-email").value = "";
+    const form=document.getElementById("register-form");
+    form.style.display="none";
+    document.getElementById("register-email").value="";
 }
 </script>
 </body>

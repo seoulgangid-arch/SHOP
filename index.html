@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login/Register - SHOP</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<!-- Import Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka+One&family=Cherry+Swash:wght@700&display=swap" rel="stylesheet">
 <style>
     * {
@@ -24,6 +23,10 @@
     }
 
     .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         background: linear-gradient(145deg, #ff1a1a, #cc0000);
         border-radius: 25px;
@@ -54,7 +57,10 @@
         50% { transform: translateY(-8px); }
     }
 
-    .g_id_signin, .register-text, #register-form {
+    .g_id_signin {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
         margin-top: 15px;
     }
 
@@ -65,6 +71,7 @@
         cursor: pointer;
         text-decoration: underline;
         transition: 0.3s;
+        margin-top: 15px;
     }
 
     .register-text:hover {
@@ -77,6 +84,7 @@
         flex-direction: column;
         align-items: center;
         margin-top: 15px;
+        width: 100%;
     }
 
     #register-form input, #register-form button {

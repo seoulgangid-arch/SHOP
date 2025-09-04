@@ -1,79 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - SHOP</title>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        .g_id_signin, .register-text {
-            margin-top: 10px;
-        }
-        .register-text {
-            color: #555;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login/Register - SHOP</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+    }
+    h1 {
+        margin-bottom: 20px;
+    }
+    .g_id_signin, .register-text, #register-form {
+        margin-top: 10px;
+    }
+    .register-text {
+        color: #555;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    #register-form {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+    #register-form input, #register-form button {
+        margin-top: 5px;
+        padding: 8px;
+        font-size: 16px;
+    }
+</style>
 </head>
 <body>
-    <h1>Login with Google</h1>
+<h1>Login with Google</h1>
 
-    <!-- Google Sign-In button -->
-    <div id="g_id_onload"
-         data-client_id="314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse"
-         data-auto_prompt="false">
-    </div>
+<!-- Google Sign-In button -->
+<div id="g_id_onload"
+     data-client_id="314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com"
+     data-callback="handleCredentialResponse"
+     data-auto_prompt="false">
+</div>
 
-    <div class="g_id_signin"
-         data-type="standard"
-         data-theme="outline"
-         data-size="large"
-         data-text="signin_with"
-         data-logo_alignment="left">
-    </div>
+<div class="g_id_signin"
+     data-type="standard"
+     data-theme="outline"
+     data-size="large"
+     data-text="signin_with"
+     data-logo_alignment="left">
+</div>
 
-    <!-- Register text -->
-    <div class="register-text" onclick="handleRegister()">Register with Gmail</div>
+<!-- Register with Gmail -->
+<div class="register-text" onclick="showRegisterForm()">Register with Gmail</div>
 
-    <script>
-        function handleCredentialResponse(response) {
-            console.log("JWT Token: " + response.credential);
-            // Redirect ke SHOP setelah login
-            window.location.href = "https://seoulgangid-arch.github.io/SHOP/";
-        }
+<!-- Form to input Gmail -->
+<div id="register-form">
+    <input type="email" id="register-email" placeholder="Enter active Gmail" required>
+    <button onclick="submitRegister()">Submit</button>
+</div>
 
-        function handleRegister() {
-            // Bisa diarahkan ke halaman register atau langsung pakai Google Sign-In juga
-            alert("Klik tombol Google Sign-In untuk mendaftar dengan Gmail!");
-        }
+<script>
+function handleCredentialResponse(response) {
+    console.log("JWT Token: " + response.credential);
+    // Redirect to SHOP after login
+    window.location.href = "https://seoulgangid-arch.github.io/SHOP/";
+}
 
-        window.onload = function () {
-            google.accounts.id.initialize({
-                client_id: "314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com",
-                callback: handleCredentialResponse
-            });
+function showRegisterForm() {
+    document.getElementById("register-form").style.display = "flex";
+}
 
-            google.accounts.id.renderButton(
-                document.querySelector(".g_id_signin"),
-                { theme: "outline", size: "large" }
-            );
+function submitRegister() {
+    const email = document.getElementById("register-email").value.trim();
+    if(!email) {
+        alert("Please enter a valid Gmail.");
+        return;
+    }
+    // Simulate sending the email to admin for verification
+    alert(`Thank you! The email ${email} has been sent to the admin for verification.`);
+    document.getElementById("register-form").style.display = "none";
+    document.getElementById("register-email").value = "";
+}
 
-            google.accounts.id.prompt(); // Tampilkan One Tap
-        }
-    </script>
+window.onload = function () {
+    google.accounts.id.initialize({
+        client_id: "314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+    });
+
+    google.accounts.id.renderButton(
+        document.querySelector(".g_id_signin"),
+        { theme: "outline", size: "large" }
+    );
+
+    google.accounts.id.prompt(); // Show One Tap
+}
+</script>
 </body>
 </html>

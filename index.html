@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login/Register - SHOP</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka+One&family=Cherry+Swash:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
     * {
         margin: 0;
@@ -16,10 +16,25 @@
     body {
         font-family: 'Fredoka One', sans-serif;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
         background: linear-gradient(135deg, #330000, #660000);
+    }
+
+    .welcome-text {
+        font-family: 'Pacifico', cursive;
+        font-size: 2.6rem;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 20px;
+        animation: fadeIn 1s ease forwards;
+        opacity: 0;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
     }
 
     .container {
@@ -48,7 +63,6 @@
         font-size: 2.2rem;
         color: #fff;
         margin-bottom: 25px;
-        text-shadow: 0 0 5px #ff6666, 0 0 15px #ff1a1a;
         animation: bounce 2s infinite;
     }
 
@@ -103,7 +117,7 @@
         color: #fff;
         border: 2px solid #ff1a1a;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-        font-family: 'Cherry Swash', cursive;
+        font-family: 'Fredoka One', cursive;
     }
 
     #register-form input:focus {
@@ -139,35 +153,42 @@
         #register-form input, #register-form button {
             width: 90%;
         }
+
+        .welcome-text {
+            font-size: 1.4rem;
+        }
     }
 </style>
 </head>
 <body>
-<div class="container">
-    <h1>Sign in with Google</h1>
+    <!-- Welcome message -->
+    <h2 class="welcome-text">Welcome to Seoulgang ID! Have fun shopping with us</h2>
 
-    <!-- Google Sign-In button -->
-    <div id="g_id_onload"
-         data-client_id="314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse"
-         data-auto_prompt="false">
+    <div class="container">
+        <h1>Sign in with Google</h1>
+
+        <!-- Google Sign-In button -->
+        <div id="g_id_onload"
+             data-client_id="314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com"
+             data-callback="handleCredentialResponse"
+             data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin"
+             data-type="standard"
+             data-theme="outline"
+             data-size="large"
+             data-text="signin_with"
+             data-logo_alignment="left">
+        </div>
+
+        <div class="register-text" onclick="showRegisterForm()">Register with Gmail</div>
+
+        <div id="register-form">
+            <input type="email" id="register-email" placeholder="Enter your Gmail" required>
+            <button onclick="submitRegister()">Submit</button>
+        </div>
     </div>
-
-    <div class="g_id_signin"
-         data-type="standard"
-         data-theme="outline"
-         data-size="large"
-         data-text="signin_with"
-         data-logo_alignment="left">
-    </div>
-
-    <div class="register-text" onclick="showRegisterForm()">Register with Gmail</div>
-
-    <div id="register-form">
-        <input type="email" id="register-email" placeholder="Enter your Gmail" required>
-        <button onclick="submitRegister()">Submit</button>
-    </div>
-</div>
 
 <script>
 function handleCredentialResponse(response) {
@@ -178,7 +199,8 @@ function handleCredentialResponse(response) {
 function showRegisterForm() {
     const form = document.getElementById("register-form");
     form.style.display = "flex";
-    form.animate([{opacity: 0}, {opacity: 1}], {duration: 500});
+    form.style.opacity = 0;
+    form.animate([{opacity: 0}, {opacity: 1}], {duration: 500, fill: 'forwards'});
 }
 
 function submitRegister() {

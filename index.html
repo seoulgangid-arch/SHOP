@@ -104,10 +104,35 @@ h1 {
     box-shadow:4px 6px 20px rgba(0,0,0,0.4);
 }
 
+/* Custom Google Button */
+.custom-google-btn {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-family:'Cherry Swash', cursive;
+    background:linear-gradient(145deg,#ff1a1a,#ff4d4d);
+    color:#fff;
+    font-size:1.1rem;
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    box-shadow:2px 4px 12px rgba(0,0,0,0.3);
+    transition:all 0.3s ease;
+    margin-top:15px;
+}
+
+.custom-google-btn:hover {
+    background:linear-gradient(145deg,#ff4d4d,#ff1a1a);
+    transform:translateY(-3px);
+    box-shadow:4px 6px 20px rgba(0,0,0,0.4);
+}
+
 @media(max-width:480px) {
     .container{padding:30px 20px;}
     h1{font-size:1.8rem;}
-    #register-form input,#register-form button{width:90%;}
+    #register-form input,#register-form button,.custom-google-btn{width:90%;}
 }
 </style>
 </head>
@@ -115,20 +140,11 @@ h1 {
 <div class="container">
     <h1>Sign in with Google</h1>
 
-    <!-- Default Google Sign-In button -->
-    <div id="g_id_onload"
-         data-client_id="314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse"
-         data-auto_prompt="false">
-    </div>
-
-    <div class="g_id_signin"
-         data-type="standard"
-         data-theme="outline"
-         data-size="large"
-         data-text="signin_with"
-         data-logo_alignment="left">
-    </div>
+    <!-- Custom Google Button -->
+    <button class="custom-google-btn" onclick="googleSignIn()">
+        <img src="gicon.png" width="20" alt="Google Logo">
+        Sign in with Google
+    </button>
 
     <div class="register-text" onclick="showRegisterForm()">Register with Gmail</div>
 
@@ -145,15 +161,12 @@ window.onload = function(){
         client_id: "314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com",
         callback: handleCredentialResponse
     });
-
-    // Render the button
-    google.accounts.id.renderButton(
-        document.querySelector(".g_id_signin"),
-        { theme: "outline", size: "large" }
-    );
-
-    google.accounts.id.prompt(); // Optional: show One Tap
 };
+
+function googleSignIn(){
+    // Trigger Google One Tap / login popup
+    google.accounts.id.prompt();
+}
 
 function handleCredentialResponse(response){
     console.log("JWT Token: "+response.credential);

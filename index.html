@@ -18,8 +18,13 @@
         h1 {
             margin-bottom: 20px;
         }
-        .g_id_signin {
+        .g_id_signin, .register-text {
             margin-top: 10px;
+        }
+        .register-text {
+            color: #555;
+            cursor: pointer;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -41,11 +46,19 @@
          data-logo_alignment="left">
     </div>
 
+    <!-- Register text -->
+    <div class="register-text" onclick="handleRegister()">Register with Gmail</div>
+
     <script>
         function handleCredentialResponse(response) {
             console.log("JWT Token: " + response.credential);
             // Redirect ke SHOP setelah login
             window.location.href = "https://seoulgangid-arch.github.io/SHOP/";
+        }
+
+        function handleRegister() {
+            // Bisa diarahkan ke halaman register atau langsung pakai Google Sign-In juga
+            alert("Klik tombol Google Sign-In untuk mendaftar dengan Gmail!");
         }
 
         window.onload = function () {

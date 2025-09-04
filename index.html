@@ -104,14 +104,20 @@ h1 {
     box-shadow:4px 6px 20px rgba(0,0,0,0.4);
 }
 
-/* Custom container around Google button for girly effect */
+/* Wrapper untuk efek girly di sekitar tombol default */
 .google-wrapper {
     margin-top:15px;
     padding:4px;
-    border-radius:50px; /* matches pill */
+    border-radius:50px; /* cocok dengan pill */
     background: linear-gradient(145deg,#ff6666,#cc0000);
     display:inline-block;
     box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+}
+
+@media(max-width:480px) {
+    .container{padding:30px 20px;}
+    h1{font-size:1.8rem;}
+    #register-form input,#register-form button,.google-wrapper{width:90%;}
 }
 </style>
 </head>
@@ -119,7 +125,7 @@ h1 {
 <div class="container">
     <h1>Sign in with Google</h1>
 
-    <!-- Default Google Sign-In Button with pill shape -->
+    <!-- Tombol default Google dengan bentuk pill -->
     <div class="google-wrapper">
         <div class="g_id_signin"
              data-type="standard"
@@ -145,7 +151,7 @@ window.onload = function(){
         client_id: "314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com",
         callback: handleCredentialResponse
     });
-    google.accounts.id.prompt();
+    google.accounts.id.prompt(); // Optional One Tap
 };
 
 function handleCredentialResponse(response){

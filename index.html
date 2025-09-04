@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login/Register - SHOP</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka+One&family=Cherry+Swash:wght@700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -104,11 +103,11 @@ h1 {
     box-shadow:4px 6px 20px rgba(0,0,0,0.4);
 }
 
-/* Wrapper untuk efek girly di sekitar tombol default */
+/* Wrapper girly di sekitar tombol default */
 .google-wrapper {
     margin-top:15px;
     padding:4px;
-    border-radius:50px; /* cocok dengan pill */
+    border-radius:50px; 
     background: linear-gradient(145deg,#ff6666,#cc0000);
     display:inline-block;
     box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
@@ -125,7 +124,7 @@ h1 {
 <div class="container">
     <h1>Sign in with Google</h1>
 
-    <!-- Tombol default Google dengan bentuk pill -->
+    <!-- Tombol default Google -->
     <div class="google-wrapper">
         <div class="g_id_signin"
              data-type="standard"
@@ -151,7 +150,7 @@ window.onload = function(){
         client_id: "314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com",
         callback: handleCredentialResponse
     });
-    google.accounts.id.prompt(); // Optional One Tap
+    google.accounts.id.prompt(); // One Tap optional
 };
 
 function handleCredentialResponse(response){

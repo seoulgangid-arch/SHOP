@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login/Register - SHOP</title>
+<title>Seoulgang ID - SHOP</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -38,19 +38,8 @@ h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bott
 
 <div class="container">
     <h1>Sign in with Google</h1>
-    <div id="g_id_onload"
-         data-client_id="314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse"
-         data-auto_prompt="false">
-    </div>
-
-    <div class="g_id_signin"
-         data-type="standard"
-         data-theme="outline"
-         data-size="large"
-         data-text="signin_with"
-         data-logo_alignment="left">
-    </div>
+    <div id="g_id_onload" data-client_id="314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com" data-callback="handleCredentialResponse" data-auto_prompt="false"></div>
+    <div class="g_id_signin" data-type="standard" data-theme="outline" data-size="large" data-text="signin_with" data-logo_alignment="left"></div>
 
     <div class="register-text" onclick="showRegisterForm()">Register with Gmail</div>
     <div id="register-form">
@@ -68,7 +57,7 @@ h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bott
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzf2jrtl-HusK8TtetPPaYeTBW-XF9_8_Y0XhaRYG8Ln8HX671Cq97xTxkNaZXtlHNwLQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx9QBc4SrklMqwy5xx2J878RjWasvO652TZ3QWCAL41goMKdLwfIDGtHazYJOECJHHr/exec";
 const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdra6gvbX3oCHll9EPk4fUZCpAm9J0Npa-WZwBT9ThyjUvI8g/formResponse";
 
 function popupMsg(msg){
@@ -104,6 +93,9 @@ function submitRegister(){
         } else {
             submitToGoogleForm(email);
         }
+    }).catch(err=>{
+        popupMsg("Error contacting server. Try again later!");
+        console.error(err);
     });
 }
 
@@ -124,11 +116,10 @@ document.getElementById("popup-close").addEventListener("click",()=>{
     setTimeout(()=>{ popup.style.display = "none"; },300);
 });
 
-// Emoji DVD-style background
+// Emoji DVD-style bounce background
 const emojiList = ["🛒","🛍️","🏷️","🔖","👜","👝","🎁","🎀","👗","👚","👕","👖","👔","👙","👟","👠","👡","👢","👒","🎩","🧢","👓","🕶️","🧤","🧣","🧦","👛","💄","💍","⌚","🏬","🏪","💳","💵","💰","🪙","💸","📦","🥡","🍫","🍷"];
 const rainContainer = document.getElementById("emoji-rain");
 const emojis = [];
-
 for(let i=0;i<25;i++){
     const div = document.createElement("div");
     div.className = "emoji";
@@ -138,7 +129,6 @@ for(let i=0;i<25;i++){
     rainContainer.appendChild(div);
     emojis.push({el:div,x:Math.random()*(window.innerWidth-size),y:Math.random()*(window.innerHeight-size),vx:(Math.random()*0.5+0.3)*(Math.random()<0.5?-1:1),vy:(Math.random()*0.5+0.3)*(Math.random()<0.5?-1:1),size:size});
 }
-
 function animateEmojis(){
     emojis.forEach(e=>{
         e.x += e.vx; e.y += e.vy;
@@ -151,12 +141,6 @@ function animateEmojis(){
     requestAnimationFrame(animateEmojis);
 }
 animateEmojis();
-
-// Google Sign-In callback
-function handleCredentialResponse(response){
-    console.log("JWT Token: " + response.credential);
-    popupMsg("Google Sign-In successful! 🎉");
-}
 </script>
 </body>
 </html>

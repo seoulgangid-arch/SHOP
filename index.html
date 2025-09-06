@@ -14,50 +14,24 @@ body {
     height:100vh; background: linear-gradient(135deg, #330000, #660000); overflow:hidden; position:relative;
 }
 
-.emoji-rain {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: -1;
-}
+.emoji-rain { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:-1; }
+.emoji { position:absolute; font-size:30px; user-select:none; will-change:transform; }
 
-.emoji {
-    position: absolute;
-    font-size: 30px;
-    user-select: none;
-    will-change: transform;
-}
-
-/* Konten utama */
-.welcome-text {
-    font-family:'Pacifico', cursive; font-size:2.6rem; color:#fff; text-align:center; margin-bottom:20px;
-    animation: fadeIn 1s ease forwards, shadow-dance 8s infinite; opacity:0;
-    position: relative;
-    z-index: 1;
-}
+.welcome-text { font-family:'Pacifico', cursive; font-size:2.6rem; color:#fff; text-align:center; margin-bottom:20px;
+    animation: fadeIn 1s ease forwards, shadow-dance 8s infinite; opacity:0; position: relative; z-index:1; }
 
 @keyframes fadeIn{ to{opacity:1;} }
 @keyframes shadow-dance{0%,100%{text-shadow:5px 5px 0 #ff005e,10px 10px 0 #00d4ff;}50%{text-shadow:-5px -5px 0 #00d4ff,-10px -10px 0 #ff005e;}}
 
-.container {
-    display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+.container { display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
     background: linear-gradient(145deg, #ff1a1a, #cc0000); border-radius:25px; padding:40px 30px;
     width:90%; max-width:400px; box-shadow:0 10px 30px rgba(0,0,0,0.3),0 0 20px #ff3333 inset;
-    transform:translateY(-50px); opacity:0; animation: slideIn 1s forwards;
-    position: relative;
-    z-index: 1;
-}
+    transform:translateY(-50px); opacity:0; animation: slideIn 1s forwards; position: relative; z-index:1; }
 
 @keyframes slideIn{ to{transform:translateY(0); opacity:1;} }
-
 h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bottom:25px; animation:bounce 2s infinite; }
 @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 
-/* Register & popup */
 .g_id_signin{ display:flex !important; justify-content:center !important; width:100% !important; margin-top:15px; }
 .register-text{ font-family:'Fredoka One', cursive; font-size:1.2rem; color:#fff; cursor:pointer; text-decoration:underline; transition:0.3s; margin-top:15px; }
 .register-text:hover{ color:#ffcccc; text-shadow:0 0 5px #ff6666,0 0 10px #ff3333; }
@@ -69,22 +43,13 @@ h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bott
 #register-form button{ background: linear-gradient(145deg, #ff1a1a, #ff3333); color:#fff; font-family:'Fredoka One', cursive; font-size:1.1rem; font-weight:bold; cursor:pointer; box-shadow:2px 4px 12px rgba(0,0,0,0.3); }
 #register-form button:hover{ background:linear-gradient(145deg,#ff3333,#ff1a1a); transform:translateY(-3px); box-shadow:4px 6px 20px rgba(0,0,0,0.4); }
 
-@media (max-width:480px){ 
-    .container{padding:30px 20px;} 
-    h1{font-size:1.8rem;} 
-    #register-form input,#register-form button{width:90%;} 
-    .welcome-text{font-size:2rem;} 
-}
+@media (max-width:480px){ .container{padding:30px 20px;} h1{font-size:1.8rem;} #register-form input,#register-form button{width:90%;} .welcome-text{font-size:2rem;} }
 
-/* Popup */
 #popup{ display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#ff4d4d;
-    color:#fff; padding:30px 25px; border-radius:20px; box-shadow:0 5px 20px rgba(0,0,0,0.4);
-    z-index:10000; text-align:center; max-width:90%; font-family:'Fredoka One', sans-serif;
-}
+    color:#fff; padding:30px 25px; border-radius:20px; box-shadow:0 5px 20px rgba(0,0,0,0.4); z-index:10000; text-align:center; max-width:90%; font-family:'Fredoka One', sans-serif; }
 #popup-message{ font-size:1.1rem; margin-bottom:20px; }
 #popup-close{ padding:10px 20px; font-size:1rem; font-weight:bold; border:none; border-radius:10px; cursor:pointer; background:#fff; color:#ff3333; transition:0.3s; }
 #popup-close:hover{ background:#ffe6e6; }
-
 </style>
 </head>
 <body>
@@ -117,7 +82,6 @@ h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bott
 
 <div class="emoji-rain" id="emoji-rain"></div>
 
-<!-- Popup -->
 <div id="popup">
     <p id="popup-message">Message here</p>
     <button id="popup-close">Close</button>
@@ -150,21 +114,32 @@ function submitRegister() {
     }
 
     if (!email.toLowerCase().endsWith("@gmail.com")) {
-        msg.textContent = "Hey! 😡 What is this?! Only Gmail addresses allowed! Try again, seriously!";
+        msg.textContent = "Hey! 😡 Only Gmail addresses allowed! Try again!";
         popup.style.display = "block";
         popup.style.opacity = 0;
         popup.animate([{opacity:0},{opacity:1}],{duration:300,fill:'forwards'});
         return;
     }
 
-    msg.textContent = `Cheers, ${email}! 🍾 Your registration is in the hands of our super admin. A confirmation email is on its way soon!`;
-    popup.style.display = "block";
-    popup.style.opacity = 0;
-    popup.animate([{opacity:0},{opacity:1}],{duration:300,fill:'forwards'});
+    // Submit to Google Form
+    const formData = new FormData();
+    formData.append("entry.1841453535", email);
 
-    const form = document.getElementById("register-form");
-    form.style.display = "none";
-    document.getElementById("register-email").value = "";
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSdra6gvbX3oCHll9EPk4fUZCpAm9J0Npa-WZwBT9ThyjUvI8g/formResponse", {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+    }).then(()=>{
+        msg.textContent = `Cheers, ${email}! 🍾 Your registration is submitted successfully!`;
+        popup.style.display = "block";
+        popup.style.opacity = 0;
+        popup.animate([{opacity:0},{opacity:1}],{duration:300,fill:'forwards'});
+        document.getElementById("register-email").value = "";
+        document.getElementById("register-form").style.display = "none";
+    }).catch(err=>{
+        msg.textContent = `Oops! Something went wrong. Try again.`;
+        popup.style.display = "block";
+    });
 }
 
 document.getElementById("popup-close").addEventListener("click", function(){
@@ -178,16 +153,14 @@ window.onload = function () {
         client_id: "314703538838-cp2nm11deeirrtus11290r46v4ugeqdq.apps.googleusercontent.com",
         callback: handleCredentialResponse
     });
-
     google.accounts.id.renderButton(
         document.querySelector(".g_id_signin"),
         { theme: "outline", size: "large" }
     );
-
     google.accounts.id.prompt();
 }
 
-// Emoji DVD-style bounce background with shopping & fashion emojis
+// Emoji DVD-style bounce background
 const emojiList = [
 "🛒","🛍️","🏷️","🔖","👜","👝","🎁","🎀","👗","👚","👕","👖","👔","👙","👟","👠","👡","👢",
 "👒","🎩","🧢","👓","🕶️","🧤","🧣","🧦","👛","💄","💍","⌚","🏬","🏪","💳","💵","💰","🪙","💸",
@@ -197,7 +170,7 @@ const emojiList = [
 const rainContainer = document.getElementById("emoji-rain");
 const emojis = [];
 
-for (let i=0;i<25;i++){ // jumlah emoji
+for (let i=0;i<25;i++){
     const div = document.createElement("div");
     div.className = "emoji";
     div.textContent = emojiList[Math.floor(Math.random()*emojiList.length)];
@@ -208,8 +181,8 @@ for (let i=0;i<25;i++){ // jumlah emoji
         el: div,
         x: Math.random()*(window.innerWidth-size),
         y: Math.random()*(window.innerHeight-size),
-        vx: (Math.random()*0.5+0.3)*(Math.random()<0.5?-1:1), // lebih pelan
-        vy: (Math.random()*0.5+0.3)*(Math.random()<0.5?-1:1), // lebih pelan
+        vx: (Math.random()*0.5+0.3)*(Math.random()<0.5?-1:1),
+        vy: (Math.random()*0.5+0.3)*(Math.random()<0.5?-1:1),
         size: size
     });
 }

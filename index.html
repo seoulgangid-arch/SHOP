@@ -13,33 +13,69 @@ body {
     display:flex; flex-direction:column; justify-content:center; align-items:center;
     height:100vh; background: linear-gradient(135deg, #330000, #660000); overflow:hidden; position:relative;
 }
+
+/* Emoji background */
+.emoji-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1; /* dibelakang konten */
+}
+
+.emoji {
+    position: absolute;
+    font-size: 24px;
+    will-change: transform;
+    user-select: none;
+}
+
+/* Konten utama di atas background */
 .welcome-text {
     font-family:'Pacifico', cursive; font-size:2.6rem; color:#fff; text-align:center; margin-bottom:20px;
     animation: fadeIn 1s ease forwards, shadow-dance 8s infinite; opacity:0;
+    position: relative;
+    z-index: 1;
 }
+
 @keyframes fadeIn{ to{opacity:1;} }
 @keyframes shadow-dance{0%,100%{text-shadow:5px 5px 0 #ff005e,10px 10px 0 #00d4ff;}50%{text-shadow:-5px -5px 0 #00d4ff,-10px -10px 0 #ff005e;}}
+
 .container {
     display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
     background: linear-gradient(145deg, #ff1a1a, #cc0000); border-radius:25px; padding:40px 30px;
     width:90%; max-width:400px; box-shadow:0 10px 30px rgba(0,0,0,0.3),0 0 20px #ff3333 inset;
     transform:translateY(-50px); opacity:0; animation: slideIn 1s forwards;
+    position: relative;
+    z-index: 1;
 }
+
 @keyframes slideIn{ to{transform:translateY(0); opacity:1;} }
+
 h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bottom:25px; animation:bounce 2s infinite; }
 @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
 .g_id_signin{ display:flex !important; justify-content:center !important; width:100% !important; margin-top:15px; }
 .register-text{ font-family:'Fredoka One', cursive; font-size:1.2rem; color:#fff; cursor:pointer; text-decoration:underline; transition:0.3s; margin-top:15px; }
 .register-text:hover{ color:#ffcccc; text-shadow:0 0 5px #ff6666,0 0 10px #ff3333; }
+
 #register-form{ display:none; flex-direction:column; align-items:center; margin-top:15px; width:100%; }
 #register-form input,#register-form button{ width:80%; margin-top:12px; padding:14px; font-size:16px; border-radius:12px; border:none; outline:none; transition:all 0.3s ease; }
 #register-form input{ background:#660000; color:#fff; border:2px solid #ff1a1a; box-shadow:2px 2px 8px rgba(0,0,0,0.2); font-family:'Fredoka One', cursive; }
 #register-form input:focus{ border-color:#ff3333; box-shadow:2px 2px 12px #ff6666; }
 #register-form button{ background: linear-gradient(145deg, #ff1a1a, #ff3333); color:#fff; font-family:'Fredoka One', cursive; font-size:1.1rem; font-weight:bold; cursor:pointer; box-shadow:2px 4px 12px rgba(0,0,0,0.3); }
 #register-form button:hover{ background:linear-gradient(145deg,#ff3333,#ff1a1a); transform:translateY(-3px); box-shadow:4px 6px 20px rgba(0,0,0,0.4); }
-@media (max-width:480px){ .container{padding:30px 20px;} h1{font-size:1.8rem;} #register-form input,#register-form button{width:90%;} .welcome-text{font-size:2rem;} }
-.emoji-rain{ position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:9999; }
-.emoji{ position:absolute; font-size:24px; will-change:transform; user-select:none; }
+
+@media (max-width:480px){ 
+    .container{padding:30px 20px;} 
+    h1{font-size:1.8rem;} 
+    #register-form input,#register-form button{width:90%;} 
+    .welcome-text{font-size:2rem;} 
+}
+
 /* Popup */
 #popup{ display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#ff4d4d;
     color:#fff; padding:30px 25px; border-radius:20px; box-shadow:0 5px 20px rgba(0,0,0,0.4);
@@ -48,6 +84,7 @@ h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bott
 #popup-message{ font-size:1.1rem; margin-bottom:20px; }
 #popup-close{ padding:10px 20px; font-size:1rem; font-weight:bold; border:none; border-radius:10px; cursor:pointer; background:#fff; color:#ff3333; transition:0.3s; }
 #popup-close:hover{ background:#ffe6e6; }
+
 </style>
 </head>
 <body>
@@ -150,7 +187,7 @@ window.onload = function () {
     google.accounts.id.prompt();
 }
 
-// Emoji rain
+// Emoji rain background
 const emojiList = ["🛒","🛍️","👗","👕","👚","👖","👠","👟","👒","👜","🎩","👓","💰","💵","💳","🪙","💸","📦","🍎","🍫","🍷","🏬","🏪","🏷️","🔖","🏷️💸","🎁","🎀","✨","🛒🤑"];
 const rainContainer = document.getElementById("emoji-rain");
 

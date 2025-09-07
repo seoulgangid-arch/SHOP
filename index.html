@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Seoulgang ID - SHOP</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Montserrat&family=Oswald&family=Raleway&family=Poppins&family=Pacifico&family=Fredoka+One&family=Ubuntu&family=Merriweather&family=Dancing+Script&family=Anton&family=Playfair+Display&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { 
@@ -21,7 +21,7 @@ body {
 .welcome-text {
     font-family:'Pacifico', cursive;
     font-size:2.6rem;
-    color: #fff; /* text white */
+    color: #fff;
     text-align:center;
     margin-bottom:20px;
     animation: fadeIn 1s ease forwards, neon-flicker 1.5s infinite alternate;
@@ -36,7 +36,6 @@ body {
         0 0 80px #ff3333,
         0 0 90px #ff3333;
 }
-
 @keyframes fadeIn{ to{opacity:1;} }
 @keyframes neon-flicker {
     0% { text-shadow: 0 0 5px #ff1a1a,0 0 10px #ff1a1a,0 0 20px #ff1a1a,0 0 40px #ff3333,0 0 80px #ff3333,0 0 90px #ff3333; }
@@ -87,6 +86,21 @@ h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bott
 
 .emoji-rain { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:-1; }
 .emoji { position:absolute; font-size:30px; user-select:none; will-change:transform; }
+
+/* Footer Spider-Verse style */
+.footer {
+    position: fixed;
+    bottom: 15px;
+    left: 20px;
+    font-size: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    user-select: none;
+}
+.footer span {
+    transition: all 0.4s ease;
+    color: rgba(255,255,255,0.7);
+}
 </style>
 </head>
 <body>
@@ -121,8 +135,12 @@ h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bott
     <button id="popup-close">Close</button>
 </div>
 
+<!-- Footer -->
+<div class="footer" id="footer"></div>
+
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
+// --- Register / Popup ---
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxY2_e0Q9GlKqX5iyouVUkzByi8RdH3YXxcJr6ZpgHnuXOhZOAXbkvOtnJ161qcHw2T/exec";
 const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdra6gvbX3oCHll9EPk4fUZCpAm9J0Npa-WZwBT9ThyjUvI8g/formResponse";
 
@@ -134,29 +152,24 @@ function popupMsg(msg){
     popup.style.opacity = 0;
     popup.animate([{opacity:0},{opacity:1}],{duration:300,fill:'forwards'});
 }
-
 function showRegisterForm(){
     const form = document.getElementById("register-form");
     form.style.display = "flex";
     form.style.opacity = 0;
     form.animate([{opacity:0},{opacity:1}],{duration:500,fill:'forwards'});
 }
-
 function submitRegister(){
     const email = document.getElementById("register-email").value.trim();
     const submitBtn = document.getElementById("submit-btn");
     const btnText = document.getElementById("btn-text");
     const btnSpinner = document.getElementById("btn-spinner");
-
     if(!email || !email.toLowerCase().endsWith("@gmail.com")){
         popupMsg("Hey! 😡 Only Gmail addresses allowed! Try again, seriously!");
         return;
     }
-
     submitBtn.disabled = true;
     btnText.style.display = "none";
     btnSpinner.style.display = "inline-block";
-
     fetch(WEB_APP_URL+"?email="+encodeURIComponent(email))
     .then(res => res.text())
     .then(status => {
@@ -182,35 +195,29 @@ function submitRegister(){
         console.error(err);
     });
 }
-
 function submitToGoogleForm(email){
     const formData = new FormData();
     formData.append("entry.1841453535", email);
     popupMsg(`🎉 Hooray! ${email} is on its way! Please wait for admin to notice... ⏳`);
-
     fetch(GOOGLE_FORM_URL, {method:"POST", body: formData, mode:"no-cors"})
     .then(()=>{
         document.getElementById("register-email").value = "";
         document.getElementById("register-form").style.display = "none";
     });
 }
-
 document.getElementById("popup-close").addEventListener("click",()=>{
     const popup = document.getElementById("popup");
     const submitBtn = document.getElementById("submit-btn");
     const btnText = document.getElementById("btn-text");
     const btnSpinner = document.getElementById("btn-spinner");
-
     popup.animate([{opacity:1},{opacity:0}],{duration:300,fill:'forwards'});
     setTimeout(()=>{ popup.style.display = "none"; },300);
-
-    // reset tombol loading
     submitBtn.disabled = false;
     btnText.style.display = "inline";
     btnSpinner.style.display = "none";
 });
 
-// Emoji rain
+// --- Emoji Rain ---
 const emojiList = ["🛒","🛍️","🏷️","🔖","👜","👝","🎁","🎀","👗","👚","👕","👖","👔","👙","👟","👠","👡","👢","👒","🎩","🧢","👓","🕶️","🧤","🧣","🧦","👛","💄","💍","⌚","🏬","🏪","💳","💵","💰","🪙","💸","📦","🥡","🍫","🍷"];
 const rainContainer = document.getElementById("emoji-rain");
 const emojis = [];
@@ -235,6 +242,40 @@ function animateEmojis(){
     requestAnimationFrame(animateEmojis);
 }
 animateEmojis();
+
+// --- Footer Spider-Verse Extreme ---
+const footerText = "Created by Rina Mariana";
+const footerEl = document.getElementById("footer");
+const fonts = ["Roboto","Open Sans","Lato","Montserrat","Oswald","Raleway","Poppins","Pacifico","Fredoka One","Ubuntu","Merriweather","Dancing Script","Anton","Playfair Display"];
+footerEl.innerHTML = "";
+
+// Buat span per huruf (spasi tetap)
+footerText.split("").forEach(char => {
+    const span = document.createElement("span");
+    span.textContent = char === " " ? "\u00A0" : char;
+    footerEl.appendChild(span);
+});
+const spans = footerEl.querySelectorAll("span");
+
+function animateLetter(span){
+    const font = fonts[Math.floor(Math.random()*fonts.length)];
+    const weight = Math.random()<0.5?"bold":"600";
+    const colors = ["#fff","#ffcccc","#ffe6e6","#ff9999","#ff6666"];
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    span.style.fontFamily = font;
+    span.style.fontWeight = weight;
+    span.style.color = color;
+    span.style.textShadow = `0 0 2px ${color}, 0 0 5px ${color}, 0 0 10px ${color}`;
+}
+
+// Animasi per huruf secara acak dengan delay berbeda
+function randomFontAnimation(){
+    spans.forEach(span=>{
+        const delay = Math.random()*800; // delay acak 0-800ms
+        setTimeout(()=>animateLetter(span), delay);
+    });
+}
+setInterval(randomFontAnimation, 700);
 </script>
 </body>
 </html>

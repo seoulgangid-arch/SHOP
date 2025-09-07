@@ -6,6 +6,7 @@
 <title>Seoulgang ID - SHOP</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Lato&family=Montserrat&family=Oswald&family=Raleway&family=Poppins&family=Pacifico&family=Fredoka+One&family=Ubuntu&family=Merriweather&family=Dancing+Script&family=Anton&family=Playfair+Display&display=swap" rel="stylesheet">
 <style>
+/* הכללי */
 * { margin:0; padding:0; box-sizing:border-box; }
 body { 
     font-family:'Fredoka One', sans-serif; 
@@ -17,7 +18,7 @@ body {
     position:relative; 
 }
 
-/* Neon white text with red glow */
+/* טקסט ניאון לבן עם זוהר אדום */
 .welcome-text {
     font-family:'Pacifico', cursive;
     font-size:2.6rem;
@@ -87,7 +88,7 @@ h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bott
 .emoji-rain { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:-1; }
 .emoji { position:absolute; font-size:30px; user-select:none; will-change:transform; }
 
-/* Footer Spider-Verse style */
+/* כותרת תחתונה בסגנון Spider-Verse */
 .footer {
     position: fixed;
     bottom: 15px;
@@ -140,7 +141,7 @@ h1 { font-family:'Pacifico', cursive; font-size:2.42rem; color:#fff; margin-bott
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-// --- Register / Popup ---
+// --- רישום / חלון קופץ ---
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxY2_e0Q9GlKqX5iyouVUkzByi8RdH3YXxcJr6ZpgHnuXOhZOAXbkvOtnJ161qcHw2T/exec";
 const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdra6gvbX3oCHll9EPk4fUZCpAm9J0Npa-WZwBT9ThyjUvI8g/formResponse";
 
@@ -150,12 +151,14 @@ function popupMsg(msg){
     msgEl.textContent = msg;
     popup.style.display = "block";
     popup.style.opacity = 0;
+    // אנימציה של הופעה
     popup.animate([{opacity:0},{opacity:1}],{duration:300,fill:'forwards'});
 }
 function showRegisterForm(){
     const form = document.getElementById("register-form");
     form.style.display = "flex";
     form.style.opacity = 0;
+    // אנימציה של הצגת טופס רישום
     form.animate([{opacity:0},{opacity:1}],{duration:500,fill:'forwards'});
 }
 function submitRegister(){
@@ -163,6 +166,7 @@ function submitRegister(){
     const submitBtn = document.getElementById("submit-btn");
     const btnText = document.getElementById("btn-text");
     const btnSpinner = document.getElementById("btn-spinner");
+    // בדיקה אם האימייל חוקי
     if(!email || !email.toLowerCase().endsWith("@gmail.com")){
         popupMsg("Hey! 😡 Only Gmail addresses allowed! Try again, seriously!");
         return;
@@ -170,6 +174,7 @@ function submitRegister(){
     submitBtn.disabled = true;
     btnText.style.display = "none";
     btnSpinner.style.display = "inline-block";
+    // שליחת הבקשה לשרת
     fetch(WEB_APP_URL+"?email="+encodeURIComponent(email))
     .then(res => res.text())
     .then(status => {
@@ -191,6 +196,7 @@ function submitRegister(){
         }
     })
     .catch(err => {
+        // טיפול בשגיאות חיבור
         popupMsg("Oops! 🚨 Server is sleepy. Try again later!");
         console.error(err);
     });
@@ -198,6 +204,7 @@ function submitRegister(){
 function submitToGoogleForm(email){
     const formData = new FormData();
     formData.append("entry.1841453535", email);
+    // הצגת הודעה למשתמש
     popupMsg(`🎉 Hooray! ${email} is on its way! Please wait for admin to notice... ⏳`);
     fetch(GOOGLE_FORM_URL, {method:"POST", body: formData, mode:"no-cors"})
     .then(()=>{
@@ -210,6 +217,7 @@ document.getElementById("popup-close").addEventListener("click",()=>{
     const submitBtn = document.getElementById("submit-btn");
     const btnText = document.getElementById("btn-text");
     const btnSpinner = document.getElementById("btn-spinner");
+    // אנימציה של סגירת חלון הקופץ
     popup.animate([{opacity:1},{opacity:0}],{duration:300,fill:'forwards'});
     setTimeout(()=>{ popup.style.display = "none"; },300);
     submitBtn.disabled = false;
@@ -217,10 +225,11 @@ document.getElementById("popup-close").addEventListener("click",()=>{
     btnSpinner.style.display = "none";
 });
 
-// --- Emoji Rain ---
+// --- גשם אימוג'י ---
 const emojiList = ["🛒","🛍️","🏷️","🔖","👜","👝","🎁","🎀","👗","👚","👕","👖","👔","👙","👟","👠","👡","👢","👒","🎩","🧢","👓","🕶️","🧤","🧣","🧦","👛","💄","💍","⌚","🏬","🏪","💳","💵","💰","🪙","💸","📦","🥡","🍫","🍷"];
 const rainContainer = document.getElementById("emoji-rain");
 const emojis = [];
+// יצירת האימוג'ים
 for(let i=0;i<25;i++){
     const div = document.createElement("div");
     div.className = "emoji";
@@ -231,6 +240,7 @@ for(let i=0;i<25;i++){
     emojis.push({el:div,x:Math.random()*(window.innerWidth-size),y:Math.random()*(window.innerHeight-size),vx:(Math.random()*0.5+0.3)*(Math.random()<0.5?-1:1),vy:(Math.random()*0.5+0.3)*(Math.random()<0.5?-1:1),size:size});
 }
 function animateEmojis(){
+    // עדכון מיקום כל אימוג'י
     emojis.forEach(e=>{
         e.x += e.vx; e.y += e.vy;
         if(e.x<0){ e.x=0; e.vx*=-1; }
@@ -243,13 +253,13 @@ function animateEmojis(){
 }
 animateEmojis();
 
-// --- Footer Spider-Verse Extreme ---
+// --- כותרת תחתונה בסגנון Spider-Verse ---
 const footerText = "Created by Rina Mariana";
 const footerEl = document.getElementById("footer");
 const fonts = ["Roboto","Open Sans","Lato","Montserrat","Oswald","Raleway","Poppins","Pacifico","Fredoka One","Ubuntu","Merriweather","Dancing Script","Anton","Playfair Display"];
 footerEl.innerHTML = "";
 
-// Buat span per huruf (spasi tetap)
+// יצירת אלמנט span לכל אות
 footerText.split("").forEach(char => {
     const span = document.createElement("span");
     span.textContent = char === " " ? "\u00A0" : char;
@@ -257,6 +267,7 @@ footerText.split("").forEach(char => {
 });
 const spans = footerEl.querySelectorAll("span");
 
+// פונקציה לשינוי גופן, עובי וצבע באופן אקראי
 function animateLetter(span){
     const font = fonts[Math.floor(Math.random()*fonts.length)];
     const weight = Math.random()<0.5?"bold":"600";
@@ -268,10 +279,10 @@ function animateLetter(span){
     span.style.textShadow = `0 0 2px ${color}, 0 0 5px ${color}, 0 0 10px ${color}`;
 }
 
-// Animasi per huruf secara acak dengan delay berbeda
+// אנימציה אקראית לכל אות עם דיליי שונה
 function randomFontAnimation(){
     spans.forEach(span=>{
-        const delay = Math.random()*800; // delay acak 0-800ms
+        const delay = Math.random()*800; // דיליי אקראי 0-800ms
         setTimeout(()=>animateLetter(span), delay);
     });
 }
